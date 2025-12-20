@@ -21,7 +21,7 @@ vector* vector_init(const size_t item_size) {
 // Increases the vectors size by one and reasizes it if necessary. Make sure to
 // pass in a valid vector, it is not validated.
 static void vector_increase_size(vector* const v) {
-  int new_size = v->size + 1;
+  size_t new_size = v->size + 1;
   if (new_size > v->capacity) {
     int new_capacity;
     if (v->capacity == 0) {
@@ -52,7 +52,7 @@ void vector_append(vector* const v, const void* new_item) {
 // Returns a pointer to a copy of the item with the given index. Returns NULL if
 // the index is out of bounds.  Make sure to pass in a valid vector, it is not
 // validated.
-void* vector_get(vector* const v, const int index) {
+void* vector_get(vector* const v, const size_t index) {
   if (index >= v->size) {
     return NULL;
   }
@@ -76,7 +76,7 @@ void vector_pop(vector* const v) {
 
 // Removes the element with the given index. Does nothing if index is invalid.
 // Make sure to pass in a valid vector, it is not validated.
-void vector_remove(vector* const v, const int index) {
+void vector_remove(vector* const v, const size_t index) {
   if (index < 0 || index >= v->size) {
     return;
   }
@@ -96,7 +96,7 @@ void vector_clear(vector* const v) { v->size = 0; }
 
 // Inserts the new item before index.
 // Make sure to pass in a valid vector, it is not validated.
-void vector_insert(vector* const v, int index, const void* new_item) {
+void vector_insert(vector* const v, size_t index, const void* new_item) {
   int old_size = v->size;
   vector_increase_size(v);
 

@@ -13,6 +13,8 @@ void vector_append(vector* const v, const void* new_item);
 
 void* vector_get(vector* const v, const size_t index);
 
+void* vector_get_copy(vector* const v, const size_t index);
+
 void vector_pop(vector* const v);
 
 void vector_remove(vector* const v, const size_t index);

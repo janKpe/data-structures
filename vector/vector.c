@@ -52,6 +52,23 @@ void vector_append(vector* const v, const void* new_item) {
 // Returns a pointer to a copy of the item with the given index. Returns NULL if
 // the index is out of bounds.  Make sure to pass in a valid vector, it is not
 // validated.
+void* vector_get_copy(vector* const v, const size_t index) {
+  if (index >= v->size) {
+    return NULL;
+  }
+
+  int* item_copy = malloc(v->item_size);
+  if (!item_copy) {
+    return NULL;
+  }
+  memmove(item_copy, v->start + (index * v->item_size), v->item_size);
+  return item_copy;
+}
+
+// Returns a pointer to the item with the given index. This does not make a
+// copy. This can cause dangeling pointers, use with caution. Returns NULL if
+// the index is out of bounds.  Make sure to pass in a valid vector, it is not
+// validated.
 void* vector_get(vector* const v, const size_t index) {
   if (index >= v->size) {
     return NULL;

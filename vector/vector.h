@@ -1,5 +1,8 @@
 #include <stdlib.h>
 
+#ifndef VECTOR_H
+#define VECTOR_H
+
 typedef struct {
   size_t size;
   size_t capacity;
@@ -24,3 +27,5 @@ void vector_clear(vector* const v);
 void vector_insert(vector* const v, const size_t index, const void* new_item);
 
 void vector_free(vector* const v);
+
+#endif

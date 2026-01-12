@@ -74,12 +74,7 @@ void* vector_get(vector* const v, const size_t index) {
     return NULL;
   }
 
-  int* item_copy = malloc(v->item_size);
-  if (!item_copy) {
-    return NULL;
-  }
-  memmove(item_copy, v->start + (index * v->item_size), v->item_size);
-  return item_copy;
+  return v->start + (index * v->item_size);
 }
 
 // Pops the last element. Make sure to pass in a valid vector, it is not

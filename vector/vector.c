@@ -40,8 +40,6 @@ static void vector_increase_size(vector* const v) {
   v->size = new_size;
 }
 
-// Appends a new item to the vector, make sure to only add items of the same
-// size as the initial type size.
 void vector_append(vector* const v, const void* new_item) {
   VECTOR_VALIDATE(v)
   VALIDATE_PTR(new_item)
@@ -50,8 +48,6 @@ void vector_append(vector* const v, const void* new_item) {
   memmove(v->start + (old_size * v->item_size), new_item, v->item_size);
 }
 
-// Returns a pointer to a copy of the item with the given index. Returns NULL if
-// the index is out of bounds.
 void* vector_get_copy(vector* const v, const size_t index) {
   VECTOR_VALIDATE(v)
   if (index >= v->size) {
@@ -66,9 +62,6 @@ void* vector_get_copy(vector* const v, const size_t index) {
   return item_copy;
 }
 
-// Returns a pointer to the item with the given index. This does not make a
-// copy. This can cause dangeling pointers, use with caution. Returns NULL if
-// the index is out of bounds.
 void* vector_get(vector* const v, const size_t index) {
   VECTOR_VALIDATE(v)
   if (index >= v->size) {
@@ -78,7 +71,6 @@ void* vector_get(vector* const v, const size_t index) {
   return v->start + (index * v->item_size);
 }
 
-// Pops the last element.
 void vector_pop(vector* const v) {
   VECTOR_VALIDATE(v)
 
@@ -88,7 +80,6 @@ void vector_pop(vector* const v) {
   v->size -= 1;
 }
 
-// Removes the element with the given index. Does nothing if index is invalid.
 void vector_remove(vector* const v, const size_t index) {
   VECTOR_VALIDATE(v)
 
@@ -106,13 +97,11 @@ void vector_remove(vector* const v, const size_t index) {
   memmove(src, dest, len);
 }
 
-// Clear the vector
 void vector_clear(vector* const v) {
   VECTOR_VALIDATE(v)
   v->size = 0;
 }
 
-// Inserts the new item before index.
 void vector_insert(vector* const v, size_t index, const void* new_item) {
   VECTOR_VALIDATE(v)
   VALIDATE_PTR(new_item)
@@ -128,7 +117,6 @@ void vector_insert(vector* const v, size_t index, const void* new_item) {
   memcpy(base + index * v->item_size, new_item, v->item_size);
 }
 
-// Frees the vector..
 void vector_free(vector* const v) {
   VECTOR_VALIDATE(v)
   free(v->start);

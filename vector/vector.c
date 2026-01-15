@@ -1,8 +1,8 @@
 #include "vector.h"
+#include "utils/utils.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "utils/utils.h"
 
 static void vector_increase_size(vector* const v);
 
@@ -18,7 +18,8 @@ vector* vector_init(const size_t item_size) {
   return v;
 }
 
-vector* vector_init_with_capacity(const size_t item_size, const size_t capacity) {
+vector* vector_init_with_capacity(const size_t item_size,
+                                  const size_t capacity) {
   vector* v = malloc(sizeof(vector));
 
   RETURN_NULL_IF_NULL(v);
@@ -43,21 +44,22 @@ vector* vector_init_with_capacity(const size_t item_size, const size_t capacity)
 static void vector_increase_size(vector* const v) {
   RETURN_IF_NULL(v);
 
-  size_t new_size = v->size + 1;
-  if (new_size > v->capacity) {
-    int new_capacity;
-    if (v->capacity == 0) {
-      new_capacity = 1;
-    } else {
-      new_capacity = v->capacity * 2;
-    }
-    void* new_start = realloc(v->start, new_capacity * v->item_size);
-    RETURN_IF_NULL(new_start);
-
-    v->capacity = new_capacity;
-    v->start = new_start;
+  v->size++;
+  if (v->size <= v->capacity) {
+    return;
   }
-  v->size = new_size;
+  
+  int new_capacity;
+  if (v->capacity == 0) {
+    new_capacity = 1;
+  } else {
+    new_capacity = v->capacity * 2;
+  }
+  void* new_start = realloc(v->start, new_capacity * v->item_size);
+  RETURN_IF_NULL(new_start);
+
+  v->capacity = new_capacity;
+  v->start = new_start;
 }
 
 void vector_append(vector* const v, const void* new_item) {

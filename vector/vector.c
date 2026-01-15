@@ -18,6 +18,27 @@ vector* vector_init(const size_t item_size) {
   return v;
 }
 
+vector* vector_init_with_capacity(const size_t item_size, const size_t capacity) {
+  vector* v = malloc(sizeof(vector));
+
+  RETURN_NULL_IF_NULL(v);
+
+  v->capacity = capacity;
+  v->size = 0;
+  v->item_size = item_size;
+
+  if (capacity == 0) {
+    v->start = NULL;
+  } else {
+    v->start = malloc(capacity * v->item_size);
+    if (v->start == NULL) {
+      return NULL;
+    }
+  }
+
+  return v;
+}
+
 // Increases the vectors size by one and reasizes it if necessary.
 static void vector_increase_size(vector* const v) {
   RETURN_IF_NULL(v);
@@ -31,9 +52,7 @@ static void vector_increase_size(vector* const v) {
       new_capacity = v->capacity * 2;
     }
     void* new_start = realloc(v->start, new_capacity * v->item_size);
-    if (!new_start) {
-      return;
-    }
+    RETURN_IF_NULL(new_start);
 
     v->capacity = new_capacity;
     v->start = new_start;

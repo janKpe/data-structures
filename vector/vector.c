@@ -2,13 +2,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "utils/utils.h"
 
 static void vector_increase_size(vector* const v);
 
 vector* vector_init(const size_t item_size) {
   vector* v = malloc(sizeof(vector));
 
-  VECTOR_VALIDATE(v)
+  RETURN_NULL_IF_NULL(v);
 
   v->capacity = 0;
   v->size = 0;
@@ -19,7 +20,7 @@ vector* vector_init(const size_t item_size) {
 
 // Increases the vectors size by one and reasizes it if necessary.
 static void vector_increase_size(vector* const v) {
-  VECTOR_VALIDATE(v);
+  RETURN_IF_NULL(v);
 
   size_t new_size = v->size + 1;
   if (new_size > v->capacity) {
@@ -41,15 +42,15 @@ static void vector_increase_size(vector* const v) {
 }
 
 void vector_append(vector* const v, const void* new_item) {
-  VECTOR_VALIDATE(v)
-  VALIDATE_PTR(new_item)
+  RETURN_IF_NULL(v);
+  RETURN_IF_NULL(new_item);
   int old_size = v->size;
   vector_increase_size(v);
   memmove(v->start + (old_size * v->item_size), new_item, v->item_size);
 }
 
 void* vector_get_copy(vector* const v, const size_t index) {
-  VECTOR_VALIDATE(v)
+  RETURN_NULL_IF_NULL(v);
   if (index >= v->size) {
     return NULL;
   }
@@ -63,7 +64,7 @@ void* vector_get_copy(vector* const v, const size_t index) {
 }
 
 void* vector_get(vector* const v, const size_t index) {
-  VECTOR_VALIDATE(v)
+  RETURN_NULL_IF_NULL(v);
   if (index >= v->size) {
     return NULL;
   }
@@ -72,7 +73,7 @@ void* vector_get(vector* const v, const size_t index) {
 }
 
 void vector_pop(vector* const v) {
-  VECTOR_VALIDATE(v)
+  RETURN_IF_NULL(v);
 
   if (v->size <= 0) {
     return;
@@ -81,7 +82,7 @@ void vector_pop(vector* const v) {
 }
 
 void vector_remove(vector* const v, const size_t index) {
-  VECTOR_VALIDATE(v)
+  RETURN_IF_NULL(v);
 
   if (index < 0 || index >= v->size) {
     return;
@@ -98,13 +99,13 @@ void vector_remove(vector* const v, const size_t index) {
 }
 
 void vector_clear(vector* const v) {
-  VECTOR_VALIDATE(v)
+  RETURN_IF_NULL(v);
   v->size = 0;
 }
 
 void vector_insert(vector* const v, size_t index, const void* new_item) {
-  VECTOR_VALIDATE(v)
-  VALIDATE_PTR(new_item)
+  RETURN_IF_NULL(v);
+  RETURN_IF_NULL(new_item);
 
   int old_size = v->size;
   vector_increase_size(v);
@@ -118,7 +119,7 @@ void vector_insert(vector* const v, size_t index, const void* new_item) {
 }
 
 void vector_free(vector* const v) {
-  VECTOR_VALIDATE(v)
+  RETURN_IF_NULL(v);
   free(v->start);
   free(v);
 }

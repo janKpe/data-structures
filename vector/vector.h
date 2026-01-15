@@ -3,13 +3,6 @@
 #ifndef VECTOR_H
 #define VECTOR_H
 
-#define VECTOR_VALIDATE(vector)                                                \
-  if (vector == NULL) {                                                        \
-    return;                                                                    \
-  }
-
-#define VALIDATE_PTR(ptr) VECTOR_VALIDATE(ptr)
-
 typedef struct {
   size_t size;
   size_t capacity;

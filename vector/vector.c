@@ -67,7 +67,7 @@ void vector_append(vector* const v, const void* new_item) {
   RETURN_IF_NULL(new_item);
   int old_size = v->size;
   vector_increase_size(v);
-  memmove(v->start + (old_size * v->item_size), new_item, v->item_size);
+  memmove((char*)v->start + (old_size * v->item_size), new_item, v->item_size);
 }
 
 void* vector_get_copy(vector* const v, const size_t index) {
@@ -80,7 +80,7 @@ void* vector_get_copy(vector* const v, const size_t index) {
   if (!item_copy) {
     return NULL;
   }
-  memmove(item_copy, v->start + (index * v->item_size), v->item_size);
+  memmove(item_copy, (char*)v->start + (index * v->item_size), v->item_size);
   return item_copy;
 }
 
@@ -90,7 +90,7 @@ void* vector_get(vector* const v, const size_t index) {
     return NULL;
   }
 
-  return v->start + (index * v->item_size);
+  return (char*)v->start + (index * v->item_size);
 }
 
 void vector_pop(vector* const v) {

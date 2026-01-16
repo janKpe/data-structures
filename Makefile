@@ -1,7 +1,6 @@
 CC = clang
 CFLAGS = -g -Wall -Wextra -Werror -I.
 
-SRCDIR = .
 BUILDDIR = build
 
 SRCS = main.c vector/vector.c hashmap/hashmap.c
@@ -11,12 +10,14 @@ TARGET = $(BUILDDIR)/main
 
 all: $(TARGET)
 
-$(TARGET): $(OBJS) | $(BUILDDIR)
+$(TARGET): $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) -o $(TARGET)
 
-$(BUILDDIR)/%.o: %.c | $(BUILDDIR)
+$(BUILDDIR)/%.o: %.c
 	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -c $< -o $@
+
+$(OBJS): | $(BUILDDIR)
 
 $(BUILDDIR):
 	mkdir -p $(BUILDDIR)

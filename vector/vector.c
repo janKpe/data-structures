@@ -77,7 +77,7 @@ void* vector_get_copy(vector* const v, const size_t index) {
     return NULL;
   }
 
-  int* item_copy = malloc(v->item_size);
+  void* item_copy = malloc(v->item_size);
   if (!item_copy) {
     return NULL;
   }

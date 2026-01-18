@@ -13,7 +13,7 @@ typedef struct {
 // Create a new vector.
 vector* vector_init(const size_t item_size);
 
-// Create a new vector and reserve enough memory to fit the given capacity. Behaves like vector_init is capacity is 0.
+// Create a new vector and reserve enough memory to fit the given capacity. Behaves like vector_init if capacity is 0.
 vector* vector_init_with_capacity(const size_t item_size, const size_t capacity);
 
 // Appends a new item to the vector, make sure to only add items of the same

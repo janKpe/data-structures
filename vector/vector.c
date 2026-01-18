@@ -33,6 +33,7 @@ vector* vector_init_with_capacity(const size_t item_size,
   } else {
     v->start = malloc(capacity * v->item_size);
     if (v->start == NULL) {
+      free(v);
       return NULL;
     }
   }

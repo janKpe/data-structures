@@ -106,7 +106,7 @@ void vector_pop(vector* const v) {
 void vector_remove(vector* const v, const size_t index) {
   RETURN_IF_NULL(v);
 
-  if (index < 0 || index >= v->size) {
+  if (index >= v->size) {
     return;
   }
 

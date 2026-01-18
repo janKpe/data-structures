@@ -1,4 +1,4 @@
-
+#include "stdbool.h"
 #ifndef UTILS_H
 #define UTILS_H
 
@@ -9,10 +9,17 @@
     }                                                                          \
   } while (0)
 
+#define RETURN_FALSE_IF_NULL(ptr)                                              \
+  do {                                                                         \
+    if (ptr == NULL) {                                                         \
+      return false;                                                            \
+    }                                                                          \
+  } while (0)
+
 #define RETURN_IF_NULL(ptr)                                                    \
   do {                                                                         \
     if (ptr == NULL) {                                                         \
-      return;                                                             \
+      return;                                                                  \
     }                                                                          \
   } while (0)
 

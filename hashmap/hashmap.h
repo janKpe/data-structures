@@ -67,26 +67,34 @@ typedef struct {
 //   return a->x == b->x && a->y == b->y;
 // }
 // ```
+// Returns true on success, false on allocation failure or invalid arguments.
 bool hashmap_init(size_t key_size, size_t item_size, hash_func_t hash_func,
                   eq_func_t eq_func, hashmap** const out);
 
 // Adds a new item to the hashmap or updates the value if the key already
-// exists. Resizes if necessary.
+// exists. Makes a copy of the new item. Resizes if necessary.
+// Returns true on success, false on allocation failure or invalid arguments.
 bool hashmap_put(hashmap* map, void const* key, void const* new_item);
 
 // Returns a pointer to the item with the given key. Does not make a copy.
 // Returns NULL if no item is found.
+// Returns true if the key was found, false if not found or arguments are
+// invalid.
 bool hashmap_get(hashmap const* map, void const* key, void** const out);
 
 // Returns a pointer to the item with the given key. Makes a copy. Caller is
 // responsible for freeing allocated memory. Returns NULL if no item is found.
+// Returns true if the key was found, false if not found or arguments are
+// invalid.
 bool hashmap_get_copy(hashmap const* map, void const* key, void* const out);
 
 // Removes the item with the given key from the hashmap, does nothing if the
 // item does not exist.
+// Returns true on success, false if not matching item was found or invalid arguments.
 bool hashmap_remove(hashmap* map, void const* key);
 
 // Free the hashmap.
+// Returns true on success, false if the hashmap pointer is invalid.
 bool hashmap_free(hashmap* const hashmap);
 
 #endif

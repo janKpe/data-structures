@@ -1,4 +1,4 @@
-add_library(data-structures hashmap/hashmap.c vector/vector.c)
+add_library(data-structures hashmap/hashmap.c vector/vector.c hashset/hashset.c)
 
 target_include_directories(data-structures
 	PUBLIC

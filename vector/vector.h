@@ -17,7 +17,7 @@ vector* vector_init(const size_t item_size);
 vector* vector_init_with_capacity(const size_t item_size, const size_t capacity);
 
 // Appends a new item to the vector, make sure to only add items of the same
-// size as the initial type size.
+// size as the initial type size. Makes a copy of the new item.
 void vector_append(vector* const v, const void* new_item);
 
 // Returns a pointer to the item with the given index. This does not make a

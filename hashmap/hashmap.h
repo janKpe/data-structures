@@ -1,16 +1,12 @@
 #include "stdbool.h"
 #include "vector/vector.h"
+#include "utils/hashing.h"
 
 #ifndef HASHMAP_H
 #define HASHMAP_H
 
 #define HASHMAP_INIT_BUCKET_COUNT 12
 #define HASHMAP_MAX_LOAD_FACTOR 0.75
-
-typedef size_t hash_value_t;
-
-typedef hash_value_t (*hash_func_t)(void const*);
-typedef bool (*eq_func_t)(void const*, void const*);
 
 typedef enum {
   RESIZE_SUCCESS = 0,
